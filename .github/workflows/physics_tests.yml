@@ -2,7 +2,7 @@ name: Physics Validation Pipeline
 
 on:
   push:
-    branches: [ main, feat/lagrangian ]
+    branches: [ main, feat/lagrangian-derivation ]
   pull_request:
     branches: [ main ]
 
