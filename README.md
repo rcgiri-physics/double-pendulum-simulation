@@ -14,8 +14,25 @@ This project is a high-precision numerical laboratory for exploring chaotic syst
 *   **Energy Conservation Firewall**: Verified that the Total Hamiltonian is conserved with a relative drift of $\sim 3.29 \times 10^{-13}$, significantly exceeding standard precision requirements.
 *   **Automated Validation**: Integrated a GitHub Actions pipeline (`physics_tests.yml`) to ensure every code change respects the laws of thermodynamics.
 
+## Phase Space & Chaotic Visualizations
+
+The numerical engine's precision allows for the mapping of both continuous chaotic trajectories and discrete topological bounds.
+
+### Real-Time Dynamics
+A 60fps rendering of the double pendulum's chaotic motion, generated using `matplotlib.animation` to visually confirm the physical behavior before mathematical extraction.
+![Pendulum Animation](data/animations/pendulum_chaos.gif)
+
+### Cartesian Kinematics
+The classic "spaghetti plot" demonstrating the extreme sensitivity and non-repeating bounded motion of the lower mass over time.
+![Cartesian Trajectory](data/trajectories/chaotic_run_01.png)
+
+### Poincaré Section ($\theta_1 = 0$)
+Sampling the phase space strictly when the primary arm crosses the vertical axis reveals the hidden "U-shape" geometric attractors bounding the chaos.
+![Poincaré Section](data/trajectories/poincare_01.png)
+
 ## Repository Structure
 *   `src/`: Contains the core physics logic in `mechanics.py` and solver wrappers in `solvers.py`.
+*   `scripts/`: High-performance execution scripts for animations, scatter plots, and divergence mapping.
 *   `tests/`: The `test_mechanics.py` suite used for Hamiltonian and stability verification.
 *   `docs/`: Formal theoretical derivations and the `lab_journal.md` recording project milestones.
 *   `.github/workflows/`: CI/CD pipeline configuration for automated physics testing.
@@ -49,3 +66,5 @@ The numerical engine was evaluated using a high-energy chaotic configuration ($\
 *   **Automated Validation Framework**: Developed a comprehensive `pytest` suite in `test_mechanics.py` that verifies the Total Hamiltonian against analytical potential energy formulas.
 *   **CI/CD Physics Pipeline**: Established a GitHub Actions workflow (`physics_tests.yml`) that triggers automated precision checks on every push to ensure long-term numerical integrity.
 *   **Theoretical Documentation**: Formalized the full Lagrangian derivation for the double pendulum and initialized a `lab_journal.md` for tracking numerical drift observations and project milestones.
+* **Dynamic Visualizations**: Built real-time rendering of Cartesian trajectories using matplotlib.animation for direct visual confirmation of chaotic physical behavior.
+* **Phase Space Analysis**: Engineered Poincaré sections using SciPy event tracking to map discrete topological bounds and visually verify strict energy conservation over extended time horizons.
