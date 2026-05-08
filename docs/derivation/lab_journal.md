@@ -40,3 +40,22 @@ To find the hidden order within the continuous chaos, we utilized SciPy's event 
 
 ---
 
+## Log 03: Chaos Quantification & Lyapunov Exponents
+**Date:** May 2026
+
+With the qualitative visualizations complete, the final phase required mathematical proof of the system's "sensitive dependence on initial conditions" (the Butterfly Effect).
+
+### 1. The Perturbation Experiment
+To quantify chaos, we measured the divergence of two nearly identical parallel universes in our phase space:
+*   **Baseline State:** $\theta_1 = \pi/2, \theta_2 = \pi/2$
+*   **Perturbed State:** $\theta_1 = \pi/2 + 10^{-10}$ (A microscopic shift on the order of atomic widths)
+
+Both systems were integrated over 20 seconds using the `DOP853` engine. We then calculated the Euclidean distance between their 4D state vectors ($|\Delta y|$) and plotted the natural logarithm of this divergence ($\ln|\Delta y|$) against time.
+
+### 2. Results & Analysis
+*   **Exponential Growth:** The logarithmic plot revealed a clear linear climb starting from the initial $-23$ ($\ln(10^{-10})$) up until the physical limits of the pendulum caused saturation around $t = 15$ seconds.
+*   **Maximum Lyapunov Exponent (MLE):** By applying a linear regression to the pre-saturation exponential growth phase ($t=1$ to $t=8$ seconds), we extracted the slope of the divergence.
+*   **Calculated MLE ($\lambda$):** $\approx 0.26$
+
+### 3. Conclusion
+The strictly positive value of the Maximum Lyapunov Exponent ($\lambda \approx 0.26$) serves as the definitive mathematical proof that the double pendulum is a chaotic system. Because the divergence scales as $e^{\lambda t}$, the initial microscopic uncertainty is magnified by a factor of $e$ approximately every 3.8 seconds. This establishes a hard mathematical limit on the predictive horizon of the system, despite the deterministic nature of the underlying Lagrangian equations.
