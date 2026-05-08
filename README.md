@@ -30,6 +30,13 @@ The classic "spaghetti plot" demonstrating the extreme sensitivity and non-repea
 Sampling the phase space strictly when the primary arm crosses the vertical axis reveals the hidden "U-shape" geometric attractors bounding the chaos.
 ![Poincaré Section](data/trajectories/poincare_01.png)
 
+## Quantifying Chaos (Lyapunov Exponent)
+
+To move beyond qualitative visuals, the engine measures the "Butterfly Effect" directly. By running two simultaneous simulations—one baseline and one with a microscopic $\theta_1$ perturbation of $10^{-10}$ radians—we track the exponential divergence of the parallel universes. 
+
+The strictly positive slope extracted during the linear growth phase confirms the system is mathematically chaotic.
+![Lyapunov Divergence](data/analysis/lyapunov_divergence.png)
+
 ## Repository Structure
 *   `src/`: Contains the core physics logic in `mechanics.py` and solver wrappers in `solvers.py`.
 *   `scripts/`: High-performance execution scripts for animations, scatter plots, and divergence mapping.
@@ -56,6 +63,7 @@ The numerical engine was evaluated using a high-energy chaotic configuration ($\
 | **Numerical Energy Drift** | Relative error < $10^{-10}$ | **$3.29 \times 10^{-13}$** | **PASS** |
 | **Hamiltonian Accuracy** | Analytical Baseline $\pm 10^{-8}$ | **Matches Theory** | **PASS** |
 | **Integrator Precision** | Adaptive Step Control | **DOP853 (8th Order)** | **PASS** |
+| **Maximum Lyapunov Exp** | $\lambda > 0$ (Chaotic) | $\lambda \approx 0.26$ | **PASS** |
 
 ---
 
@@ -68,3 +76,4 @@ The numerical engine was evaluated using a high-energy chaotic configuration ($\
 *   **Theoretical Documentation**: Formalized the full Lagrangian derivation for the double pendulum and initialized a `lab_journal.md` for tracking numerical drift observations and project milestones.
 * **Dynamic Visualizations**: Built real-time rendering of Cartesian trajectories using matplotlib.animation for direct visual confirmation of chaotic physical behavior.
 * **Phase Space Analysis**: Engineered Poincaré sections using SciPy event tracking to map discrete topological bounds and visually verify strict energy conservation over extended time horizons.
+* **Chaos Quantification**: Computed the Maximum Lyapunov Exponent by evaluating the continuous Euclidean divergence of micro-perturbed state vectors in 4D phase space.
