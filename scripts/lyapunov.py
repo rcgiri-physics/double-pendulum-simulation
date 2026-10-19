@@ -33,6 +33,28 @@ def calculate_lyapunov(sol1, sol2, t):
 
     return divergence, log_divergence, slope, intercept
 
+def benettin_lyapunov(state, params, t_total=400.0, tau=0.2, d0=1e-9):
+    """Maximal Lyapunov exponent by Benettin's method.
+
+    The perturbed trajectory is pulled back to distance d0 every tau seconds and
+    the log stretch factors are averaged over t_total. The slope fitted below on a
+    single pair over 1 s < t < 8 s is a finite-time exponent along one stretch of
+    trajectory; it is about 0.26 here, while this long-time average is about 0.90.
+    """
+    def flow(y):
+        return solve_ivp(get_derivatives, (0, tau), y, args=(params,),
+                         method='DOP853', rtol=1e-12, atol=1e-13).y[:, -1]
+
+    y = np.array(state, dtype=float)
+    z = y + np.array([d0, 0.0, 0.0, 0.0])
+    log_sum = 0.0
+    for _ in range(int(round(t_total / tau))):
+        y, z = flow(y), flow(z)
+        d = np.linalg.norm(z - y)
+        log_sum += np.log(d / d0)
+        z = y + (z - y) * (d0 / d)
+    return log_sum / t_total
+
 def plot_divergence(t, log_divergence, slope, intercept):
     """Plots the logarithmic divergence to visually confirm exponential growth."""
     fig, ax = plt.subplots(figsize=(10, 6), dpi=150)
@@ -89,3 +111,8 @@ if __name__ == "__main__":
     div, log_div, lambda_max, intercept = calculate_lyapunov(sol1, sol2, t_eval)
     
     plot_divergence(t_eval, log_div, lambda_max, intercept)
+
+    print("Computing the long-time exponent (Benettin renormalisation, 400 s)...")
+    lambda_long = benettin_lyapunov(state_baseline, params)
+    print(f"MAXIMUM LYAPUNOV EXPONENT (long-time average): {lambda_long:.4f}")
+    print(f"Finite-time slope over 1 s < t < 8 s:           {lambda_max:.4f}")

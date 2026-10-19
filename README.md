@@ -34,7 +34,7 @@ Sampling the phase space strictly when the primary arm crosses the vertical axis
 
 To move beyond qualitative visuals, the engine measures the "Butterfly Effect" directly. By running two simultaneous simulations—one baseline and one with a microscopic $\theta_1$ perturbation of $10^{-10}$ radians—we track the exponential divergence of the parallel universes. 
 
-The strictly positive slope extracted during the linear growth phase confirms the system is mathematically chaotic.
+The positive slope confirms the system is chaotic. The slope fitted over 1 s < t < 8 s (about 0.26) is a finite-time value along one stretch of trajectory; the maximal Lyapunov exponent, from Benettin's renormalisation averaged over 400 s, is about 0.87 (an independent run gave 0.90, so treat the second digit as uncertain).
 ![Lyapunov Divergence](data/analysis/lyapunov_divergence.png)
 
 ## Repository Structure
@@ -63,7 +63,7 @@ The numerical engine was evaluated using a high-energy chaotic configuration ($\
 | **Numerical Energy Drift** | Relative error < $10^{-10}$ | **$3.29 \times 10^{-13}$** | **PASS** |
 | **Hamiltonian Accuracy** | Analytical Baseline $\pm 10^{-8}$ | **Matches Theory** | **PASS** |
 | **Integrator Precision** | Adaptive Step Control | **DOP853 (8th Order)** | **PASS** |
-| **Maximum Lyapunov Exp** | $\lambda > 0$ (Chaotic) | $\lambda \approx 0.26$ | **PASS** |
+| **Maximum Lyapunov Exp** | $\lambda > 0$ (Chaotic) | $\lambda \approx 0.87$ (Benettin, 400 s) | **PASS** |
 
 ---
 
